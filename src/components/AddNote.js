@@ -10,6 +10,7 @@ function AddNote() {
     const handleclick = (e) => {
         e.preventDefault();
         addnote(note.title, note.description, note.tag);
+setnote({ title: "", description: "", tag: "default" });
     }
 
     const onchange = (e) => {
