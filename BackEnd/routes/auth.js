@@ -8,7 +8,6 @@ const JWT_SECRET = 'rakeshisagoodb$oy';
 const fetchuser = require('../middlewares/fetchuser');
 
 // ROUTE 1: Create a user using POST /api/auth/createuser !No Login REQuired
-
 router.post('/createuser', [
     body('name', 'Enter a valid Name').isLength({ min: 3 }),
     body('email', 'Enter a valid Email').isEmail(),
@@ -16,6 +15,7 @@ router.post('/createuser', [
 ],
     // if there are errors return bad requests and errors
     async (req, res) => {
+        let success = false;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
@@ -23,7 +23,7 @@ router.post('/createuser', [
         // check weather the user with this email exists already
         try {
             let user = await User.findOne({ email: req.body.email });
-            if (user) return res.status(400).json({ error: "Sorry the user with this mail exists" })
+            if (user) return res.status(400).json({success, error: "Sorry the user with this mail exists" })
 
             const salt = await bcrypt.genSalt(10);
             const secpass = await bcrypt.hash(req.body.password, salt)
@@ -43,7 +43,8 @@ router.post('/createuser', [
             // using jwt to ensure the verified user revisits the site, the jwt returns a tokens using that token and the secret key we will know the user is a authenticated user or not
             const authToken = jwt.sign(data, JWT_SECRET);
             // adding this user to our response
-            res.json({ authToken });
+            success = true;
+            res.json({success, authToken });
         }
         catch (error) {
             console.error(error.message)
@@ -52,7 +53,6 @@ router.post('/createuser', [
     })
 
 // ROUTE 2:  Authenticate a user using POST /api/auth/login !No Login REQuired
-
 router.post('/login', [
     body('email', 'Enter a valid Email').isEmail(),
     body('password', 'Password cannot be below 5 digits').isLength({ min: 5 }),
@@ -60,6 +60,7 @@ router.post('/login', [
     // if there are errors return bad requests and errors
     async (req, res) => {
         const errors = validationResult(req);
+        let success = false;
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
         }
@@ -71,7 +72,8 @@ router.post('/login', [
             }
             const passwordCompare = await bcrypt.compare(password, user.password);
             if (!passwordCompare) {
-                return res.status(400).json({ error: 'Please try to login with correct credentials' });
+                success = false;
+                return res.status(400).json({ success, error: 'Please try to login with correct credentials' });
             }
             // if id and password is correct
             const data = {
@@ -81,7 +83,8 @@ router.post('/login', [
             }
             const authToken = jwt.sign(data, JWT_SECRET);
             // adding this user to our response
-            res.json({ authToken });
+            success = true;
+            res.json({ success, authToken });
         }
         catch (error) {
             console.error(error.message)

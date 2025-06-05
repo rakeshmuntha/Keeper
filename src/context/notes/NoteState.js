@@ -15,7 +15,7 @@ const NoteState = (props) => {
             const response = await fetch(`${host}/api/notes/fetchallnotes`, {
                 method: "GET",
                 headers: {
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjgzMmQ2OWMyYjEwZThjMjIzOGNiMGU0In0sImlhdCI6MTc0ODE2MjI0OH0.yPi-Tp5ujh3igu7tcw4qhdt2-mTAJhKsK4nesn3q-3k",
+                    "auth-token": localStorage.getItem('token'),
                 },
             });
             
@@ -38,7 +38,7 @@ const NoteState = (props) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjgzMmQ2OWMyYjEwZThjMjIzOGNiMGU0In0sImlhdCI6MTc0ODE2MjI0OH0.yPi-Tp5ujh3igu7tcw4qhdt2-mTAJhKsK4nesn3q-3k",
+                    "auth-token": localStorage.getItem('token'),
                 },
                 body: JSON.stringify({ title, description, tag }),
             });
@@ -49,7 +49,8 @@ const NoteState = (props) => {
 
             const note = await response.json();
             setnotes(notes.concat(note));
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error adding note:', error);
         }
     }
@@ -63,7 +64,7 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjgzMmQ2OWMyYjEwZThjMjIzOGNiMGU0In0sImlhdCI6MTc0ODE2MjI0OH0.yPi-Tp5ujh3igu7tcw4qhdt2-mTAJhKsK4nesn3q-3k",
+                    "auth-token": localStorage.getItem('token'),
                 },
             });
             
@@ -76,7 +77,8 @@ const NoteState = (props) => {
             // Instead of calling getnotes(), update state directly for better performance
             const newNotes = notes.filter(note => note._id !== id);
             setnotes(newNotes);
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error deleting note:', error);
         }
     }
@@ -89,7 +91,7 @@ const NoteState = (props) => {
                 method: "PUT", // Should be PUT for updates, not POST
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjgzMmQ2OWMyYjEwZThjMjIzOGNiMGU0In0sImlhdCI6MTc0ODE2MjI0OH0.yPi-Tp5ujh3igu7tcw4qhdt2-mTAJhKsK4nesn3q-3k",
+                    "auth-token": localStorage.getItem('token'),
                 },
                 body: JSON.stringify({ title, description, tag }),
             });
@@ -101,10 +103,21 @@ const NoteState = (props) => {
             await response.json();
 
             // Create new array instead of mutating existing one
-            const newNotes = notes.filter((note) => note._id !== id);
-            
+            let newNotes = JSON.parse(JSON.stringify(notes));
+            // logic to edit
+            for (let index = 0; index < newNotes.length; index++) {
+                const element = newNotes[index];
+                if(element._id === id)
+                {
+                    element.title = title;
+                    element.description = description;
+                    element.tag = tag;
+                    break;
+                }
+            }
             setnotes(newNotes);
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error editing note:', error);
         }
     }
