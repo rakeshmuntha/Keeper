@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 
 const NoteState = (props) => {
 
-    const host = 'http://localhost:3000';
+    // const host = 'http://localhost:3000';
+    const host = 'https://inotebook-urtd.onrender.com';
     
     // Initialize with empty array instead of array with empty object
     const notesInitial = [];
