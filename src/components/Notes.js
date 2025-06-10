@@ -15,11 +15,9 @@ function Notes(props) {
         if(localStorage.getItem('token')) getnotes();
         else navigate('/login');
         // eslint-disable-next-line
-
     }, [])
 
     const ref = useRef(null);
-    const ref1 = useRef(null);
     const refclose = useRef(null);
     const [note, setnote] = useState({id: "", etitle: "", edescription: "", etag: "" });
 

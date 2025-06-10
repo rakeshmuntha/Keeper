@@ -8,7 +8,6 @@ function Noteitem(props) {
     const { note, updatenote } = props;
     const ref = useRef(null);
     const ref1 = useRef(null);
-    const ref2 = useRef(null);
 
 
     const shoulddelete = () => {

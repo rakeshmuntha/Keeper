@@ -1,12 +1,7 @@
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Navbar() {
-
-    let location = useLocation();
-    React.useEffect(() => {
-        // console.log(location.pathname);
-    }, [location]);
 
     let navigate = useNavigate();
     const handleclick = () =>
