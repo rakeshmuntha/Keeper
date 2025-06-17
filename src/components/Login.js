@@ -43,15 +43,16 @@ function Login(props) {
         setcredentials({ ...credentials, [e.target.name]: e.target.value });
     }
 
-    return (
-        <div className={`mt-3 bg-${mode} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
-            <h2>Login to continue to iNoteBook</h2>
-            <form onSubmit={handlesubmit} className='my-4'>
+return (
+    <div className={`mt-3 bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
+        <form onSubmit={handlesubmit} className='my-4'>
+            <div className="w-50 mx-auto">
+                <h2 className="mb-3">Login to continue to iNoteBook</h2>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input
                         type="email"
-                        className={`form-control bg-${mode} text-${mode === 'light' ? 'dark' : 'light'}`}
+                        className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
                         id="email"
                         name='email'
                         aria-describedby="emailHelp"
@@ -63,7 +64,7 @@ function Login(props) {
                     <label htmlFor="password" className="form-label">Password</label>
                     <input
                         type="password"
-                        className={`form-control bg-${mode} text-${mode === 'light' ? 'dark' : 'light'}`}
+                        className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
                         id="password"
                         name='password'
                         value={credentials.password}
@@ -71,9 +72,10 @@ function Login(props) {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    )
+            </div>
+        </form>
+    </div>
+);
 }
 
 export default Login

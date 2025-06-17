@@ -6,12 +6,16 @@ import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import React, { useState, useContext } from 'react';
-import NoteContext from './context/notes/NoteContext';
+import React, { useState } from 'react';
 
 function App() {
 
-        document.body.style.backgroundColor = '#212529';
+    document.body.style.backgroundColor = 'black';
+
+    const togglebackground = (mode) =>
+    {
+        document.body.style.backgroundColor = mode === 'dark' ? '#F8F9FA' : 'black';
+    };
 
 
     const [alert, setalert] = useState(null);
@@ -26,7 +30,8 @@ function App() {
     return (
         <NoteState>
             <BrowserRouter>
-                <Navbar />
+                <Navbar togglebackground = {togglebackground}/>
+
                 <Alert alert={alert} />
 
                 <div className="container">
