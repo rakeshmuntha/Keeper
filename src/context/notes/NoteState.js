@@ -5,7 +5,7 @@ const NoteState = (props) => {
 
     // const host = 'http://localhost:3000';
     const host = process.env.REACT_APP_API_URL;
-
+    const [mode, setmode] = useState("dark");
     
     // Initialize with empty array instead of array with empty object
     const notesInitial = [];
@@ -125,7 +125,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, setnotes, addnote, deletenote, editnote, getnotes }}>
+        <NoteContext.Provider value={{ notes, setnotes, addnote, deletenote, editnote, getnotes, setmode, mode }}>
             {props.children}
         </NoteContext.Provider>
     )

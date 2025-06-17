@@ -1,7 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
+import NoteContext from '../context/notes/NoteContext';
 
 function Login(props) {
+
+    const context = useContext(NoteContext);
+    const { mode } = context;
 
     const [credentials, setcredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
@@ -40,16 +44,31 @@ function Login(props) {
     }
 
     return (
-        <div className='mt-3'>
+        <div className={`mt-3 bg-${mode} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
             <h2>Login to continue to iNoteBook</h2>
             <form onSubmit={handlesubmit} className='my-4'>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="email" name='email' aria-describedby="emailHelp" value={credentials.email} onChange={onchange} />
+                    <input
+                        type="email"
+                        className={`form-control bg-${mode} text-${mode === 'light' ? 'dark' : 'light'}`}
+                        id="email"
+                        name='email'
+                        aria-describedby="emailHelp"
+                        value={credentials.email}
+                        onChange={onchange}
+                    />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" name='password' value={credentials.password} onChange={onchange} />
+                    <input
+                        type="password"
+                        className={`form-control bg-${mode} text-${mode === 'light' ? 'dark' : 'light'}`}
+                        id="password"
+                        name='password'
+                        value={credentials.password}
+                        onChange={onchange}
+                    />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

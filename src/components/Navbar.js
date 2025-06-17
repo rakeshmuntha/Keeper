@@ -1,18 +1,25 @@
-import React from 'react'
+import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import NoteContext from '../context/notes/NoteContext';
 
 function Navbar() {
 
     let navigate = useNavigate();
-    const handleclick = () =>
-    {
+    const handleclick = () => {
         localStorage.removeItem('token');
         navigate('/login');
+    }
+    const context = useContext(NoteContext);
+    const { mode, setmode } = context;
+    const darkclick = () =>
+    {
+        setmode(mode === 'dark' ? 'light' : 'dark');
+        console.log(mode);
     }
 
     return (
 
-        <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+        <nav className={`navbar navbar-expand-lg bg-${mode} navbar-${mode}`}>
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">iNoteBook</Link>
 
@@ -22,17 +29,20 @@ function Navbar() {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        
+
                     </ul>
 
                     {!localStorage.getItem('token') ?
-                    <>
-                    <Link className="btn btn-outline-light mx-2" to="/login" role="button">Login</Link>
-                    <Link className="btn btn-outline-light mx-2" to="/signup" role="button">SignUp</Link>
-                    </>
-                    // eslint-disable-next-line
-                    : <button className="btn btn-dark mx-2" onClick={handleclick} role="button">Logout</button>}
-                    
+                        <>
+                            <Link className={`btn btn-outline-${mode === 'dark' ? 'light' : 'dark'} mx-2`} to="/login" role="button">Login</Link>
+                            <Link className={`btn btn-outline-${mode === 'dark' ? 'light' : 'dark'} mx-2`} to="/signup" role="button">SignUp</Link>
+                        </>
+                        // eslint-disable-next-line
+                        : <button className={`btn btn-${mode} mx-2`} onClick={handleclick} role="button">Logout</button>}
+                    <div className={`form-check form-switch text-dard`}>
+                        <input style={{ cursor: 'pointer' }} className="form-check-input" type="checkbox" onClick={darkclick} role="switch" id="switchCheckDefault" defaultChecked />
+                    </div>
+
                 </div>
             </div>
         </nav>

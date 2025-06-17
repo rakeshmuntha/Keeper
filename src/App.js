@@ -6,12 +6,15 @@ import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import NoteContext from './context/notes/NoteContext';
 
 function App() {
 
-    const [alert, setalert] = useState(null);
+        document.body.style.backgroundColor = '#212529';
 
+
+    const [alert, setalert] = useState(null);
     const showalert = (message, type) => {
         setalert({ msg: message, type: type });
 
@@ -25,9 +28,10 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                 <Alert alert={alert} />
+
                 <div className="container">
                     <Routes>
-                        <Route exact path='/' element={<Home showalert= {showalert}/>} />
+                        <Route exacts path='/' element={<Home showalert= {showalert}/>} />
                         <Route exact path='/login' element={<Login showalert= {showalert}/>} />
                         <Route exact path='/signup' element={<Signup showalert= {showalert}/>} />
                     </Routes>
