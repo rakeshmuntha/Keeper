@@ -5,12 +5,13 @@ function Login(props) {
 
     const [credentials, setcredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
+    const host = process.env.REACT_APP_API_URL;
 
     const handlesubmit = async (e) => {
         e.preventDefault();
         try {
             // API call
-            const response = await fetch(`http://localhost:3000/api/auth/login`, {
+            const response = await fetch(`${host}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

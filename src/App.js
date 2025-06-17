@@ -1,5 +1,4 @@
 import './App.css';
-import About from './components/About';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -29,7 +28,6 @@ function App() {
                 <div className="container">
                     <Routes>
                         <Route exact path='/' element={<Home showalert= {showalert}/>} />
-                        <Route exact path='/about' element={<About />} />
                         <Route exact path='/login' element={<Login showalert= {showalert}/>} />
                         <Route exact path='/signup' element={<Signup showalert= {showalert}/>} />
                     </Routes>

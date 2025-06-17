@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 const NoteState = (props) => {
 
     // const host = 'http://localhost:3000';
-    const host = 'https://inotebook-urtd.onrender.com';
+    const host = process.env.REACT_APP_API_URL;
+
     
     // Initialize with empty array instead of array with empty object
     const notesInitial = [];
