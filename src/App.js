@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 
 function App() {
 
-    document.body.style.backgroundColor = 'black';
+    document.body.style.backgroundColor = '#F8F9FA';
 
     const togglebackground = (mode) => {
         document.body.style.backgroundColor = mode === 'dark' ? '#F8F9FA' : 'black';

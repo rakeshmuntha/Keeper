@@ -5,7 +5,7 @@ const NoteState = (props) => {
 
     // const host = 'http://localhost:3000';
     const host = process.env.REACT_APP_API_URL;
-    const [mode, setmode] = useState("dark");
+    const [mode, setmode] = useState("light");
     
     // Initialize with empty array instead of array with empty object
     const notesInitial = [];
