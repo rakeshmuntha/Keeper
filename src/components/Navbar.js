@@ -2,7 +2,7 @@ import { useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import NoteContext from '../context/notes/NoteContext';
 
-function Navbar(props) {
+function Navbar() {
     const ref = useRef(null);
     const toggledarkmode = () =>
     {
@@ -18,7 +18,6 @@ function Navbar(props) {
     const { mode, setmode } = context;
     const darkclick = () => {
         setmode(mode === 'dark' ? 'light' : 'dark');
-        props.togglebackground(mode);
     }
 
     return (
