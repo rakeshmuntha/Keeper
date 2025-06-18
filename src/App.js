@@ -29,7 +29,7 @@ function App() {
     return (
         <NoteState>
             <BrowserRouter>
-                <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%' }}>
+                <div style={{ zoom: 0.8 }}>                    
                     <Navbar togglebackground={togglebackground} />
 
                     <Alert alert={alert} />
