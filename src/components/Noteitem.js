@@ -8,7 +8,7 @@ function Noteitem(props) {
 
     return (
         <div className='col-md-3'>
-            <div className={`card my-3 bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'dark'}`}>
+            <div className={`card my-3 bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'grey'}`}>
                 <div className="card-body">
                     <div className="d-flex align-items-baseline justify-content-between">
                         <h5 className="card-title">{note.title}</h5>
@@ -20,9 +20,6 @@ function Noteitem(props) {
                     <p className="card-text">{note.description}</p>
                     <p className={`card-text text-${mode === 'dark' ? 'secondary' : 'muted'}`}>
                         <small>{note.tag}</small>
-                    </p>
-                    <p className={`card-text text-${mode === 'dark' ? 'secondary' : 'muted'}`}>
-                        <small>{note._id}</small>
                     </p>
                 </div>
             </div>

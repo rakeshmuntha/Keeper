@@ -61,7 +61,6 @@ const NoteState = (props) => {
     const deletenote = async (id) => {
         try {
             // API call
-            console.log(id);
             const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
                 method: "DELETE",
                 headers: {

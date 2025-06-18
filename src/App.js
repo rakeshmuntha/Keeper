@@ -12,8 +12,7 @@ function App() {
 
     document.body.style.backgroundColor = 'black';
 
-    const togglebackground = (mode) =>
-    {
+    const togglebackground = (mode) => {
         document.body.style.backgroundColor = mode === 'dark' ? '#F8F9FA' : 'black';
     };
 
@@ -30,16 +29,18 @@ function App() {
     return (
         <NoteState>
             <BrowserRouter>
-                <Navbar togglebackground = {togglebackground}/>
+                <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%' }}>
+                    <Navbar togglebackground={togglebackground} />
 
-                <Alert alert={alert} />
+                    <Alert alert={alert} />
 
-                <div className="container">
-                    <Routes>
-                        <Route exacts path='/' element={<Home showalert= {showalert}/>} />
-                        <Route exact path='/login' element={<Login showalert= {showalert}/>} />
-                        <Route exact path='/signup' element={<Signup showalert= {showalert}/>} />
-                    </Routes>
+                    <div className="container">
+                        <Routes>
+                            <Route exacts path='/' element={<Home showalert={showalert} />} />
+                            <Route exact path='/login' element={<Login showalert={showalert} />} />
+                            <Route exact path='/signup' element={<Signup showalert={showalert} />} />
+                        </Routes>
+                    </div>
                 </div>
             </BrowserRouter>
         </NoteState>

@@ -111,7 +111,7 @@ function Notes(props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={deleteCloseRef}>No</button>
-                            <button type="button" className="btn btn-danger" onClick={confirmDelete}>Yes</button>
+                            <button type="button" className="btn btn-primary" onClick={confirmDelete}>Yes</button>
                         </div>
                     </div>
                 </div>

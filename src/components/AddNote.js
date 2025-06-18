@@ -37,7 +37,18 @@ function AddNote(props) {
                             required
                         />
                     </div>
+
                     <div className="mb-3">
+                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
+                        <textarea className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`} rows="3" id="description"
+                            name='description'
+                            onChange={onchange}
+                            value={note.description}
+                            minLength={1}
+                            required></textarea>
+                    </div>
+
+                    {/* <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
                         <input
                             type="text"
@@ -49,7 +60,7 @@ function AddNote(props) {
                             minLength={1}
                             required
                         />
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <label htmlFor="tag" className="form-label">Tag</label>
                         <input

@@ -25,7 +25,7 @@ function Signup(props) {
             });
 
             const json = await response.json();
-            console.log(json);
+
 
             if(json.success)
             {
@@ -101,7 +101,7 @@ function Signup(props) {
                         className={`form-control bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
                         id="cpassword"
                         name='cpassword'
-                        value={credentials.password}
+                        value={credentials.cpassword}
                         onChange={onchange}
                         required
                         minLength={2}
