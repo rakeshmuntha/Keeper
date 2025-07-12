@@ -6,6 +6,8 @@ function Login(props) {
 
     const context = useContext(NoteContext);
     const { mode } = context;
+    const [showBanner, setShowBanner] = useState(true);
+
 
     const [credentials, setcredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
@@ -42,39 +44,86 @@ function Login(props) {
         setcredentials({ ...credentials, [e.target.name]: e.target.value });
     }
 
-return (
-    <div className={`mt-3 bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
-        <form onSubmit={handlesubmit} className='my-4'>
-            <div className="w-50 mx-auto">
-                <h2 className="mb-3">Login to continue to iNoteBook</h2>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input
-                        type="email"
-                        className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
-                        id="email"
-                        name='email'
-                        aria-describedby="emailHelp"
-                        value={credentials.email}
-                        onChange={onchange}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input
-                        type="password"
-                        className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
-                        id="password"
-                        name='password'
-                        value={credentials.password}
-                        onChange={onchange}
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+    return (
+        <>
+            <div className={`mt-3 bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
+                <form onSubmit={handlesubmit} className='my-4'>
+                    <div className="w-50 mx-auto">
+                        <h2 className="mb-3">Login to continue to iNoteBook</h2>
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Email address</label>
+                            <input
+                                type="email"
+                                className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
+                                id="email"
+                                name='email'
+                                aria-describedby="emailHelp"
+                                value={credentials.email}
+                                onChange={onchange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                                type="password"
+                                className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
+                                id="password"
+                                name='password'
+                                value={credentials.password}
+                                onChange={onchange}
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                {showBanner && (
+                    <div
+                        className="border rounded shadow text-dark p-3 mt-2 mx-auto"
+                        style={{
+                            backgroundColor: 'rgb(203, 236, 243)',
+                            width: '450px',
+                            fontSize: '15px',
+                            paddingRight: '20px'
+                        }}
+                    >
+                        <div className="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Don’t want to sign up right now?</strong><br />
+                                Use this temporary demo account to explore the app:<br />
+
+                                <div className="d-flex align-items-center mt-2">
+                                    <strong className="me-1">Email:</strong> demo@inotebook.com
+                                    <button
+                                        className="btn btn-sm btn"
+                                        onClick={() => navigator.clipboard.writeText('demo@inotebook.com')}
+                                        title="Copy Email"
+                                    >
+                                        <i className="fa-solid fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <div className="d-flex align-items-center mt-2">
+                                    <strong className="me-1">Password:</strong> demo1234
+                                    <button
+                                        className="btn btn-sm btn"
+                                        onClick={() => navigator.clipboard.writeText('demo1234')}
+                                        title="Copy Password"
+                                    >
+                                        <i className="fa-solid fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button
+                                className="btn-close ms-2"
+                                onClick={() => setShowBanner(false)}
+                            ></button>
+                        </div>
+                    </div>
+                )}
             </div>
-        </form>
-    </div>
-);
+        </>
+    );
 }
 
 export default Login
