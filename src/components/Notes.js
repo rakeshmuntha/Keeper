@@ -7,13 +7,60 @@ import { useNavigate } from 'react-router-dom';
 function Notes(props) {
 
     const context = useContext(NoteContext);
-    const { notes, getnotes, editnote, deletenote, mode } = context;
+    const { notes, getnotes, editnote, deletenote, mode, setnotes } = context;
     let navigate = useNavigate();
+    const host = process.env.REACT_APP_API_URL;
+    const lastModifiedRef = useRef(null);
+    const time = useRef(null);
+
+    const fetchNotes = async () => {
+        try {
+            const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+                method: "GET",
+                headers: {
+                    "auth-token": localStorage.getItem('token'),
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch notes');
+            }
+            const json = await response.json();
+            setnotes(json);
+            // Update reference
+            if (json.length > 0) {
+                lastModifiedRef.current = json[json.length - 1].updatedAt;
+            }
+        }
+        catch (error) {
+            console.error('Error fetching notes:', error);
+        }
+    };
+
+    const checkAndUpdate = async () => {
+        const res = await fetch(`${host}/api/notes/lastModified`, {
+            headers: { 'auth-token': localStorage.getItem('token') }
+        });
+        const data = await res.json();
+        if (lastModifiedRef.current && lastModifiedRef.current && data.lastModified !== lastModifiedRef.current) {
+            fetchNotes(); // Refresh only if something has changed
+        }
+    };
 
     useEffect(() => {
-        if (localStorage.getItem('token')) getnotes();
+        if (localStorage.getItem('token')) {
+            fetchNotes(); // initial notes
+            time.current = setInterval(() => {
+                checkAndUpdate();
+            }, 5000);
+        }
         else navigate('/login');
         // eslint-disable-next-line
+
+
+        return () => {
+            clearInterval(time.current);
+        }
     }, []);
 
     const editRef = useRef(null);
@@ -62,7 +109,7 @@ function Notes(props) {
             {/* Edit Modal */}
             <div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
-                    <div className={`modal-content bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'dark'}`}>
+                    <div className={`modal-content bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'dark'}`}>
                         <div className={`modal-header border-bottom border-${mode === 'dark' ? 'light' : 'dark'}`}>
                             <h1 className="modal-title fs-5" id="editModalLabel">Edit Note</h1>
                             <button type="button" className={`btn-close ${mode === 'dark' ? 'btn-close-white' : ''}`} data-bs-dismiss="modal" aria-label="Close"></button>
@@ -72,15 +119,15 @@ function Notes(props) {
                                 <div className='container my-4'>
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label">Title</label>
-                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="etitle" name='etitle' value={note.etitle} onChange={onchange} minLength={1} required />
+                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="etitle" name='etitle' value={note.etitle} onChange={onchange} minLength={1} required />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="description" className="form-label">Description</label>
-                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="edescription" name='edescription' value={note.edescription} onChange={onchange} minLength={1} required />
+                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="edescription" name='edescription' value={note.edescription} onChange={onchange} minLength={1} required />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="tag" className="form-label">Tag</label>
-                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="etag" name='etag' value={note.etag} onChange={onchange} />
+                                        <input type="text" className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'dark' ? 'light' : 'dark'}`} id="etag" name='etag' value={note.etag} onChange={onchange} />
                                     </div>
                                 </div>
                             </form>
@@ -101,7 +148,7 @@ function Notes(props) {
             {/* Delete Modal */}
             <div className="modal fade" id="deleteModal" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
-                    <div className={`modal-content bg-${mode === 'dark' ? 'black' :'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'dark'}`}>
+                    <div className={`modal-content bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'dark' ? 'light' : 'dark'} border-${mode === 'dark' ? 'light' : 'dark'}`}>
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="deleteModalLabel">Delete Note</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

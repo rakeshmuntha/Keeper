@@ -35,7 +35,7 @@ function Login(props) {
             else { props.showalert("Invalid Credentials!", "danger"); }
         }
         catch (error) {
-            console.error('Error deleting note:', error);
+
         }
     }
 
@@ -89,24 +89,24 @@ function Login(props) {
                         <div className="d-flex justify-content-between align-items-start">
                             <div>
                                 <strong>Don’t want to sign up right now?</strong><br />
-                                Use this temporary demo account to explore the app:<br />
+                                Use this temporary demo account to explore the application:<br />
 
-                                <div className="d-flex align-items-center mt-2">
-                                    <strong className="me-1">Email:</strong> demo@inotebook.com
+                                <div className="d-flex align-items-center mt-1">
+                                    <strong className="me-1">Email:</strong> demoApp@inotebook.com
                                     <button
                                         className="btn btn-sm btn"
-                                        onClick={() => navigator.clipboard.writeText('demo@inotebook.com')}
+                                        onClick={() => navigator.clipboard.writeText('demoApp@inotebook.com')}
                                         title="Copy Email"
                                     >
                                         <i className="fa-solid fa-copy"></i>
                                     </button>
                                 </div>
 
-                                <div className="d-flex align-items-center mt-2">
-                                    <strong className="me-1">Password:</strong> demo1234
+                                <div className="d-flex align-items-center">
+                                    <strong className="me-1">Password:</strong> demoApp@1234
                                     <button
                                         className="btn btn-sm btn"
-                                        onClick={() => navigator.clipboard.writeText('demo1234')}
+                                        onClick={() => navigator.clipboard.writeText('demoApp@1234')}
                                         title="Copy Password"
                                     >
                                         <i className="fa-solid fa-copy"></i>

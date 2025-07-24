@@ -5,23 +5,24 @@ const Notes = require('../modules/Notes')
 const { body, validationResult } = require('express-validator');
 
 
+// ROUTE 1: Get all the notes using: GET /api/notes/fetchallnotes !Login REQuired
+router.get('/lastModified', fetchuser, async (req, res) => {
+    const notes = await Notes.find({ user: req.user.id });
+
+    if (notes.length === 0) return res.json({ lastModified: null });
+    return res.json({ lastModified: notes[notes.length - 1].updatedAt });
+});
 
 // ROUTE 1: Get all the notes using: GET /api/notes/fetchallnotes !Login REQuired
 router.get("/fetchallnotes", fetchuser, async (req, res) => {
-
-
     try {
-        // req.user.id has the id of the mongodb table it searches all the collection and finds the table and we ara displaying it
         const notes = await Notes.find({ user: req.user.id });
         res.json(notes);
-
     }
     catch (error) {
         console.error(error.message)
         res.status(500).send('Internal Server Error')
     }
-
-
 })
 
 

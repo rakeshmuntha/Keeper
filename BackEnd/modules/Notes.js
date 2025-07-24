@@ -9,5 +9,5 @@ const notesSchema = new Schema({
     tag: { type: String, default: "General" },
     date: { type: Date, default: Date.now },
 
-});
+}, { timestamps: true });
 module.exports = mongoose.model('notes', notesSchema);
