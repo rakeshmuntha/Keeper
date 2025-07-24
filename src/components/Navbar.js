@@ -23,7 +23,7 @@ function Navbar() {
     return (
         <nav className={`navbar navbar-expand-lg bg-${mode === 'dark' ? 'black' : 'light'} navbar-${mode}`} style={{ boxShadow: mode === 'light' ? '0 4px 8px rgba(109, 108, 108, 0.2)' : '0 4px 8px rgba(205, 204, 204, 0.2)' }}>
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/" style={{ fontSize: '1.5rem', padding: '1rem' }}>Keeper</Link>
+                <Link className="navbar-brand" to="/" style={{ fontSize: '1.6rem', padding: '1rem' }}>Keeper</Link>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
