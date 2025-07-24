@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function Notes(props) {
 
     const context = useContext(NoteContext);
-    const { notes, getnotes, editnote, deletenote, mode, setnotes } = context;
+    const { notes, editnote, deletenote, mode, setnotes } = context;
     let navigate = useNavigate();
     const host = process.env.REACT_APP_API_URL;
     const lastModifiedRef = useRef(null);
@@ -55,12 +55,11 @@ function Notes(props) {
             }, 5000);
         }
         else navigate('/login');
-        // eslint-disable-next-line
-
 
         return () => {
             clearInterval(time.current);
         }
+        // eslint-disable-next-line
     }, []);
 
     const editRef = useRef(null);
