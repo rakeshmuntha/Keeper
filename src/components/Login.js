@@ -49,7 +49,7 @@ function Login(props) {
             <div className={`mt-3 bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'} p-3 rounded`}>
                 <form onSubmit={handlesubmit} className='my-4'>
                     <div className="w-50 mx-auto">
-                        <h2 className="mb-3">Login to continue to iNoteBook</h2>
+                        <h2 className="mb-3">Login to continue to Keeper</h2>
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">Email address</label>
                             <input
@@ -92,10 +92,10 @@ function Login(props) {
                                 Use this temporary demo account to explore the application:<br />
 
                                 <div className="d-flex align-items-center mt-1">
-                                    <strong className="me-1">Email:</strong> demoApp@inotebook.com
+                                    <strong className="me-1">Email:</strong> demoApp@Keeper.com
                                     <button
                                         className="btn btn-sm btn"
-                                        onClick={() => navigator.clipboard.writeText('demoApp@inotebook.com')}
+                                        onClick={() => navigator.clipboard.writeText('demoApp@Keeper.com')}
                                         title="Copy Email"
                                     >
                                         <i className="fa-solid fa-copy"></i>

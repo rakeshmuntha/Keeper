@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`iNoteBook Backend listening on port http://localhost:${port}`)
+    console.log(`Keeper Backend listening on port http://localhost:${port}`)
 })
 
 
