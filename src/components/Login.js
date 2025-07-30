@@ -112,6 +112,10 @@ function Login(props) {
                                         <i className="fa-solid fa-copy"></i>
                                     </button>
                                 </div>
+
+                                <div className="d-flex align-items-center mt-1">
+                                Please wait for a moment until the backend starts....
+                                </div>
                             </div>
 
                             <button

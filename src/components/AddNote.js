@@ -63,13 +63,26 @@ function AddNote(props) {
                     </div> */}
                     <div className="mb-3">
                         <label htmlFor="tag" className="form-label">Tag</label>
+
+                        {mode === 'dark' && (
+                            <style>
+                                {`
+                                    #tag::placeholder {
+                                    color: gray !important;
+                                    opacity: 1;
+                                    }
+                                `}
+                            </style>
+                        )}
+
                         <input
                             type="text"
-                            className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
                             id="tag"
-                            name='tag'
+                            name="tag"
+                            className={`form-control bg-${mode === 'dark' ? 'black' : 'light'} text-${mode === 'light' ? 'dark' : 'light'}`}
                             onChange={onchange}
                             value={note.tag}
+                            placeholder="Default"
                         />
                     </div>
                     <button
